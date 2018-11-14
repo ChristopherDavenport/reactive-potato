@@ -11,14 +11,14 @@ final case class AddHandler[A](register: Handler[A] => IO[IO[Unit]]){
   /**
     * Map the event value with an 'IO' action.
     */
-  def mapIO[B](f: A => IO[B]): AddHandler[B] = AddHandler{h: Function1[B, IO[Unit]] => 
+  def mapIO[B](f: A => IO[B]): AddHandler[B] = AddHandler{h: Handler[B] => 
       register(f(_) >>= h)
   }
 
   /**
     *  Filter event values that don't return 'True'.
     */
-  def filterIO(f: A => IO[Boolean]): AddHandler[A] = AddHandler{h: Function1[A, IO[Unit]] => 
+  def filterIO(f: A => IO[Boolean]): AddHandler[A] = AddHandler{h: Handler[A] => 
     register{a: A => f(a).ifM(h(a), IO.unit)}
   }
 }
