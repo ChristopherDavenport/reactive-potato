@@ -2,6 +2,7 @@ package io.chrisdavenport.reactive.potato
 
 import io.chrisdavenport.unique._
 import cats.implicits._
+import cats._
 import cats.effect._
 import cats.effect.concurrent._
 
@@ -42,6 +43,10 @@ object AddHandler {
     for {
     handlers <- Ref.of[IO, Map[Unique, Handler[A]]](Map.empty[Unique, Handler[A]])
     } yield (registerUnregister(handlers), runHandlers(handlers))
+  }
+
+  implicit val addHandlerFunctor: Functor[AddHandler] =new Functor[AddHandler]{
+    def map[A, B](fa: AddHandler[A])(f: A => B): AddHandler[B] = fa.map(f)
   }
 
 }
