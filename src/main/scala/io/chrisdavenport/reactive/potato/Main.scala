@@ -12,12 +12,12 @@ object Main extends IOApp {
     removed <- add.register(PrintIt)
     _ <- add.register(PrintLater)
     _ <- removed
-    _ <- react.run(1)
+    _ <- react(1)
 
   } yield ExitCode.Success
 
-  val PrintIt: Handler[Int] = Handler[Int]{i: Int => IO(println(i))}
-  val PrintLater: Handler[Int] = Handler[Int]{
+  val PrintIt: Handler[Int] = {i: Int => IO(println(i))}
+  val PrintLater: Handler[Int] = {
     i: Int => timer.sleep(1.second) >> IO(println(i + 1))
   }
 
