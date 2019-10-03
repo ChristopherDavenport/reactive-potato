@@ -4,12 +4,12 @@ lazy val core = project.in(file("."))
       name := "reactive-potato"
     )
 
-val catsV = "2.0.0"
-val catsEffectV = "1.3.1"
+val catsV = "1.6.1"
+val catsEffectV = "1.4.0"
 val uniqueV = "1.0.0"
 
 
-val specs2V = "4.6.0"
+val specs2V = "4.7.1"
 val disciplineV = "0.10.0"
 val scShapelessV = "1.2.0"
 
